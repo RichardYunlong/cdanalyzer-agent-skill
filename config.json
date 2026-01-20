@@ -1,0 +1,130 @@
+{
+  "name": "CdanalyzerAgentSkill",
+  "version": "1.0.0",
+  "description": "代码质量分析工具",
+  "author": "Your Name",
+  "parameters": {
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "target_path": {
+          "type": "string",
+          "description": "待分析的项目路径或文件路径"
+        },
+        "language_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "编程语言类型清单"
+        },
+        "analysis_standard": {
+          "type": "object",
+          "description": "各种语言的分析标准配置"
+        },
+        "exclude_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "排除的文件或文件夹模式"
+        },
+        "report_format": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["html", "pdf", "txt"]
+          },
+          "description": "报告输出格式"
+        },
+        "report_path": {
+          "type": "string",
+          "description": "分析报告保存路径"
+        },
+        "ui_mode": {
+          "type": "boolean",
+          "description": "是否使用UI界面运行，默认为false"
+        },
+        "llm_provider": {
+          "type": "string",
+          "description": "大模型提供商，如openai, qwen等"
+        },
+        "llm_api_key": {
+          "type": "string",
+          "description": "大模型API密钥"
+        },
+        "llm_base_url": {
+          "type": "string",
+          "description": "大模型API基础URL，如果不适用可忽略"
+        },
+        "llm_model": {
+          "type": "string",
+          "description": "大模型名称，如gpt-3.5-turbo等"
+        },
+        "llm_top_p": {
+          "type": "number",
+          "description": "top_p参数，控制输出多样性，默认为0.7"
+        },
+        "use_llm_config": {
+          "type": "number",
+          "description": "控制是否访问大模型，0为访问大模型，1为不访问大模型（AI建议将显示为【无】）"
+        }
+      },
+      "required": ["target_path"]
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "分析是否成功"
+      },
+      "report_paths": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "生成的报告文件路径"
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "total_files": {
+            "type": "number",
+            "description": "分析的文件总数"
+          },
+          "total_lines": {
+            "type": "number",
+            "description": "代码总行数"
+          },
+          "language_breakdown": {
+            "type": "object",
+            "description": "各语言行数统计"
+          },
+          "risk_counts": {
+            "type": "object",
+            "properties": {
+              "critical": {
+                "type": "number",
+                "description": "致命风险数量"
+              },
+              "high": {
+                "type": "number",
+                "description": "高级风险数量"
+              },
+              "medium": {
+                "type": "number",
+                "description": "中级风险数量"
+              },
+              "low": {
+                "type": "number",
+                "description": "普通风险数量"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

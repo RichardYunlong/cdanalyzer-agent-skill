@@ -1,0 +1,8 @@
+# 代码质量 analysis tool dependency
+numpy>=1.21.0; python_version < '3.11'
+numpy>=1.23.0; python_version >= '3.11'
+requests>=2.25.0
+jsonschema
+pydantic
+reportlab>=4.0.0
+httpx>=0.24.0
